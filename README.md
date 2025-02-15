@@ -38,6 +38,6 @@ $ pip install -r requirements.txt
    Create a file named .gitignore in the project root with the following content:
 
 ```
-   $ uploaded_images/
-   $ .env
+   uploaded_images/
+   .env
 ```
