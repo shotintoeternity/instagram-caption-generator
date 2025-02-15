@@ -12,28 +12,32 @@ Instagram Caption Generator is a Streamlit-based web application that uses the G
 ## Installation
 
 1. **Clone the Repository:**
-
-   ``` git clone https://github.com/yourusername/instagram-caption-generator.git
-   ``` cd instagram-caption-generator
-
+```
+   git clone https://github.com/yourusername/instagram-caption-generator.git
+   cd instagram-caption-generator
+```
 2. **Create and Activate a Virtual Environment (optional but recommended):**
-
-   ```$ python3 -m venv venv
-   ```$ source venv/bin/activate
-
+```
+   $ python3 -m venv venv
+   $ source venv/bin/activate
+```
 3. **Install Dependencies:**
 
-   ```$ pip install -r requirements.txt
+```
+$ pip install -r requirements.txt
+```
 
 4. **Configure Environment Variables:**
 
    Create a file named .env in the project root with your Groq API key:
 
-   ```$ GROQ_API_KEY=your_api_key_here
+   ```$ GROQ_API_KEY=your_api_key_here```
 
 5. **Set up .gitignore:**
 
    Create a file named .gitignore in the project root with the following content:
 
-   ```$ uploaded_images/
-   ```$ .env
+```
+   $ uploaded_images/
+   $ .env
+```
