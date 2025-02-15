@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram AI Caption Maker (GPT‑4 Vision)</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #preview { max-width: 300px; display: block; margin-top: 10px; }
+    #caption { margin-top: 20px; font-size: 1.2em; }
+    button { margin-top: 10px; padding: 10px 15px; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Instagram AI Caption Maker</h1>
+  <input type="file" id="imageInput" accept="image/*" />
+  <img id="preview" src="" alt="Image preview" />
+  <br/>
+  <button id="generateButton">Generate Caption</button>
+  <div id="caption"></div>
+
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
+    const generateButton = document.getElementById('generateButton');
+    const captionDiv = document.getElementById('caption');
+    let selectedFile = null;
+
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        selectedFile = file;
+        const reader = new FileReader();
+        reader.onload = (e) => { preview.src = e.target.result; };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    generateButton.addEventListener('click', async () => {
+      if (!selectedFile) {
+        captionDiv.textContent = "Please upload an image first.";
+        return;
+      }
+      captionDiv.textContent = "Generating caption…";
+      try {
+        const caption = await generateCaptionFromImage(selectedFile);
+        captionDiv.textContent = caption;
+      } catch (error) {
+        captionDiv.textContent = "Error: " + error.message;
+      }
+    });
+
+    async function generateCaptionFromImage(file) {
+      // WARNING: In production, never expose your API key on the client.
+      const API_KEY = "YOUR_API_KEY_HERE";
+      
+      const formData = new FormData();
+      // Set model to GPT‑4 Vision (adjust model name if needed)
+      formData.append("model", "gpt-4-vision");
+      // The conversation prompt instructs the model on the desired output
+      formData.append("messages", JSON.stringify([{
+        role: "user",
+        content: "Please analyze the attached image and generate a clever and flattering Instagram caption with a semi-sardonic, Internet-aware voice. Include emojis occasionally at the end."
+      }]));
+      // Attach the image file (the parameter name 'image' is assumed; adjust if necessary)
+      formData.append("image", file, file.name);
+
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`
+          // Note: Do not manually set Content-Type when sending FormData.
+        },
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error("OpenAI API error: " + response.statusText);
+      }
+      const data = await response.json();
+      // Extract the caption from the API response; adjust if the structure differs.
+      return data.choices[0].message.content.trim();
+    }
+  </script>
+</body>
+</html>
