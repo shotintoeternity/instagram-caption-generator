@@ -30,11 +30,11 @@ Instagram Caption Generator is a Streamlit-based web application that uses the G
 
    Create a file named .env in the project root with your Groq API key:
 
-   GROQ_API_KEY=your_api_key_here
+   $ GROQ_API_KEY=your_api_key_here
 
 5. **Set up .gitignore:**
 
    Create a file named .gitignore in the project root with the following content:
 
-   uploaded_images/
-   .env
+   $ uploaded_images/
+   $ .env
