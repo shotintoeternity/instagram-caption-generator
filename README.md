@@ -13,7 +13,6 @@ Instagram Caption Generator is a Streamlit-based web application that uses the G
 
 1. **Clone the Repository:**
 
-   ```bash
    git clone https://github.com/yourusername/instagram-caption-generator.git
    cd instagram-caption-generator
 
